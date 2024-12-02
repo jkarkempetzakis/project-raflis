@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjg4qb2ivjmcu"]
+
+[ext_resource type="SpriteFrames" uid="uid://bhn2il350ebjf" path="res://Scenes/evil_wizard.tres" id="1_rrpla"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="2_kxp4r"]
+[ext_resource type="Script" path="res://Scripts/Components/MovementComponent.gd" id="3_m4k2l"]
+[ext_resource type="Script" path="res://Scripts/Components/AnimationComponent.gd" id="4_p3q2w"]
+[ext_resource type="Script" path="res://Scripts/Components/CombatComponent.gd" id="5_combat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxk3p"]
+size = Vector2(32, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1152, 20)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("2_kxp4r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = ExtResource("1_rrpla")
+animation = &"attack1"
+frame = 7
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_wxk3p")
+
+[node name="MovementComponent" type="Node" parent="Player"]
+script = ExtResource("3_m4k2l")
+
+[node name="AnimationComponent" type="Node" parent="Player"]
+script = ExtResource("4_p3q2w")
+
+[node name="CombatComponent" type="Node" parent="Player"]
+script = ExtResource("5_combat")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(576, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="ColorRect" type="ColorRect" parent="Ground"]
+offset_left = -576.0
+offset_top = -10.0
+offset_right = 576.0
+offset_bottom = 10.0
+color = Color(0.317647, 0.317647, 0.317647, 1)
